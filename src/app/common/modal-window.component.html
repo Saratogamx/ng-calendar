@@ -1,0 +1,20 @@
+<!-- Uses #modalcontainer to create an anchor to the childelement inside the view -->
+<div id="{{ elementId }}" class="modal fade" tabindex="-1" #modalcontainer>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Header of the modal window -->
+      <div class="modal-header">
+        <h5 class="modal-title">{{ title }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Body of the modal window -->
+      <div class="modal-body">
+        <div>
+          <ng-content></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

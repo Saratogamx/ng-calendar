@@ -1,0 +1,30 @@
+<div class="row">
+  <div>
+    <h3>{{ title }}</h3>
+  </div>
+  <div>
+    <button class="btn btn-sm btn-primary" style="margin-left: 15px;"
+      modal-trigger="newAppointment"
+    >Add new</button>
+  </div>
+</div>
+<br>
+<full-calendar
+  #calendar
+  defaultView="dayGridMonth"
+  [header]="{left:'prev,next today',center:'title',right:'dayGridMonth,timeGridWeek,timeGridDay,listWeek'}"
+  [plugins]="calendarPlugins" 
+  [weekends]="calendarWeekends" 
+  [events]="calendarEvents"
+  [selectable]=true
+  (dateClick)="handleDateClick($event)"
+  (eventClick)="handleEventClick($event)"
+>
+</full-calendar>
+
+<!-- Modal window for new appointment -->
+<app-modal-window title="New Appointment" elementId="newAppointment">
+  <div class="list-group">
+    <app-new-appointment></app-new-appointment>
+  </div>
+</app-modal-window>

@@ -1,0 +1,64 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/calendar']" >My Appointments</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ event.title }}</li>
+  </ol>
+</nav>
+
+<div class="row" style="margin-bottom: 25px;">
+  <div class="col-md-12">
+    <h3>Title: {{ event.title }}</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <p class="h5">Start:<br/> <span class="text-muted">{{ event.start }}</span></p>
+  </div>
+  <div class="col-md-6">
+    <p class="h5">End:<br /> <span class="text-muted">{{ event.end }}</span></p>
+  </div>
+</div>
+
+<hr>
+
+<p class="h4">
+  Customer: <span class="text-muted">{{ event?.customer.name }}&nbsp;{{ event?.customer.lastname }}</span>
+</p>
+<br>
+<p class="h4">
+  Details:
+  <br>
+  <small class="text-muted">{{ event.details }}</small>
+</p>
+<br>
+<h5 class="h4">Related Appointments:</h5>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card" style="margin-top: 15px;">
+      <div class="card-body">
+        <h5 class="card-title">Appointment</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Start: 2019-05-30 09:00 am</h6>
+        <h6 class="card-subtitle mb-2 text-muted">End: 2019-05-30 11:00 am</h6>
+        <hr>
+        <p class="card-text small">Some quick example text to build on the card title and make up the bulk of the card's content.
+        </p>
+        <a href="#" class="card-link">View more</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card" style="margin-top: 15px;">
+      <div class="card-body">
+        <h5 class="card-title">Appointment</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Start: 2019-05-30 09:00 am</h6>
+        <h6 class="card-subtitle mb-2 text-muted">End: 2019-05-30 11:00 am</h6>
+        <hr>
+        <p class="card-text small">Some quick example text to build on the card title and make up the bulk of the card's content.
+        </p>
+        <a href="#" class="card-link">View more</a>
+      </div>
+    </div>
+  </div>
+</div>

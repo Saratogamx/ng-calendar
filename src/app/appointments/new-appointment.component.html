@@ -1,0 +1,58 @@
+<form>
+  <div class="form-group">
+    <input type="text" id="title" name="title" class="form-control" placeholder="Set a title">
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <div class="form-row" style="margin-bottom: 10px;">
+      <div class="col">
+        <label for="start_date">Start date</label>
+        <input type="date" id="start_date" name="start_date" class="form-control">
+      </div>
+      <div class="col" *ngIf="!allDay">
+        <label for="start_time">Start time</label>
+        <input type="time" id="start_time" name="start_time" class="form-control">
+      </div>
+    </div>
+    <div class="form-row" *ngIf="!allDay">
+      <div class="col">
+        <label for="finish_date">Finish date</label>
+        <input type="date" id="finish_date" name="finish_date" class="form-control">
+      </div>
+      <div class="col">
+        <label for="finish_time">Finish time</label>
+        <input type="time" id="finish_time" name="finish_time" class="form-control">
+      </div>
+    </div>
+    <div class="custom-control custom-checkbox" style="margin-top: 5px;">
+      <input type="checkbox" class="custom-control-input" id="all_day" name="all_day"
+        (ngModel)="allDay"
+        (change)="onAlldayCheckboxChange($event)"
+      >
+      <label class="custom-control-label" for="all_day">All day</label>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label>Select a Customer</label>
+    <select class="custom-select" id="customer_id" name="customer_id">
+      <option selected>&nbsp;</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Appointment details</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
