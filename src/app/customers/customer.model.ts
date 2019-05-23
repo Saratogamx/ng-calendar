@@ -2,8 +2,8 @@ import { IEvent } from '../calendar/event.model';
 
 export interface ICustomer {
     id: number;
-    name: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     phoneNumber: string;
     email: string;
     country: string;

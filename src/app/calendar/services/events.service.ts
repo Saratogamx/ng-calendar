@@ -1,10 +1,8 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 // Importing Models
 import { IEvent } from '../event.model';
-import { ICustomer } from '../../customers/customer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +15,7 @@ export class EventsService {
     return of(EVENTS);
   }
 
-  getEvent(id: number) {
+  getEvent(id: number): Observable<IEvent> {
     const event = EVENTS.find(ev => ev.id === id);
     return of(event);
   }
@@ -33,8 +31,8 @@ const EVENTS: IEvent[] = [
     customerId: 1,
     customer: {
       id: 1,
-      name: 'John',
-      lastname: 'Doe',
+      firstName: 'John',
+      lastName: 'Doe',
       phoneNumber: '+52 13331294341',
       email: 'john.doe@gmail.com',
       country: 'Mexico'
@@ -51,8 +49,8 @@ const EVENTS: IEvent[] = [
     customerId: 2,
     customer: {
       id: 2,
-      name: 'Jane',
-      lastname: 'Doe',
+      firstName: 'Jane',
+      lastName: 'Doe',
       phoneNumber: '+52 13332837283',
       email: 'jane.doe@gmail.com',
       country: 'United States'
