@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject, ViewChild, ElementRef } from '@angular/core';
-import { JQ_TOKEN } from './jQuery.service';
+import { JQ_TOKEN } from './jquery.service';
 
 @Component({
   selector: 'app-modal-window',

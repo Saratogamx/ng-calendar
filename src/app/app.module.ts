@@ -14,6 +14,7 @@ import { CustomerListComponent } from './customers/customer-list.component';
 import { NewCustomerComponent } from './customers/new-customer.component';
 import { ProductListComponent } from './products/product-list.component';
 import { NewProductComponent } from './products/new-product.component';
+import { ViewAppointmentComponent } from './appointments/view-appointment.component';
 
 // Importing custom directives
 import { ModalTriggerDirective } from './common/modal-trigger.directive';
@@ -27,8 +28,7 @@ import { appRoutes } from './routes';
 // Injection token for toastr service
 import { TOASTR_TOKEN, Toastr } from './common/toastr.service';
 // Injection token for jQuery service
-import { JQ_TOKEN } from './common/jQuery.service';
-import { ViewAppointmentComponent } from './appointments/view-appointment.component';
+import { JQ_TOKEN } from './common/jquery.service';
 
 
 // Global value for "toastr" and "jquery" objects

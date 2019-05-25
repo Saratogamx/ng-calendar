@@ -7,12 +7,22 @@
   </div>
 </div>
 
-<div class="row" style="margin-bottom: 25px;">
-  Filtering here...
-</div>
+<nav class="navbar navbar-light bg-light" style="margin-bottom:10px;">
+  <div>
+    <label>Sort by:</label>
+    <select class="custom-select" id="sortBy">
+      <option selected>Choose...</option>
+      <option value="1">Customer</option>
+      <option value="2">Date</option>
+    </select>
+  </div>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  </form>
+</nav>
 
 <div class="row">
-  <table class="table">
+  <table class="table table-striped table-sm">
     <thead>
       <tr>
         <th scope="col">#</th>

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import { OrderService } from '../ordrers/services/order.service';
+
+// Importing order model
+import { IOrder } from './order.model';
+
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
@@ -7,10 +12,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderListComponent implements OnInit {
   title = 'My Orders';
+  toggleDetails = false;
+  orders: IOrder[];
 
-  constructor() { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit() {
+    this.orderService.getOrders().subscribe(data => this.orders = data);
+  }
+
+  toggleOrderDetails(event) {
+    event.preventDefault();
+    this.toggleDetails = !this.toggleDetails;
   }
 
 }

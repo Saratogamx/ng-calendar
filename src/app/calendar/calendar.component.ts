@@ -12,7 +12,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { EventsService } from './services/events.service';
 
 // Importing inject token
-import { JQ_TOKEN } from '../common/jQuery.service';
+import { JQ_TOKEN } from '../common/jquery.service';
 
 @Component({
   selector: 'app-calendar',
