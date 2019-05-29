@@ -1,12 +1,12 @@
 import { ICustomer } from '../customers/customer.model';
 
 export interface IEvent {
-    id: number;
+    id?: number;
     title: string;
     start: Date;
     end: Date;
     allDay: boolean;
     customerId: number;
-    customer: ICustomer;
+    customer?: ICustomer;
     details: string;
 }

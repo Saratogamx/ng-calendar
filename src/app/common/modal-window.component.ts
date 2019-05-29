@@ -17,7 +17,7 @@ export class ModalWindowComponent implements OnInit {
   ngOnInit() {
   }
 
-  closeModal() {
+  closeModal(): void {
     this.$(this.containerEl.nativeElement).modal('hide');
   }
 

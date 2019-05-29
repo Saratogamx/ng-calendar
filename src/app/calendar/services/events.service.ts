@@ -19,6 +19,23 @@ export class EventsService {
     const event = EVENTS.find(ev => ev.id === id);
     return of(event);
   }
+
+  getByCustomer(customerId: number): Observable<IEvent[]> {
+    const events = EVENTS.filter(ev => +ev.customerId === customerId);
+    return of(events);
+  }
+
+  create(event: IEvent): Observable<any> {
+    event.id = (this.getMaxId() + 1);
+    EVENTS.push(event);
+
+    return of(event);
+  }
+
+  private getMaxId(): number {
+    const idsArray = EVENTS.map(item => +item.id);
+    return Math.max.apply(Math, idsArray);
+  }
 }
 
 const EVENTS: IEvent[] = [
@@ -29,14 +46,6 @@ const EVENTS: IEvent[] = [
     end: new Date('2019-05-11 23:59:59'),
     allDay: false,
     customerId: 1,
-    customer: {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      phoneNumber: '+52 13331294341',
-      email: 'john.doe@gmail.com',
-      country: 'Mexico'
-    },
     // tslint:disable-next-line:max-line-length
     details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mollis nisl quis est aliquet, ut blandit nibh mollis. Vestibulum eu pretium quam, sed tempor ligula. Nam in mattis neque, tincidunt mattis urna. Donec eleifend mauris et felis consectetur consectetur. Aenean iaculis ornare nibh, ac efficitur est laoreet ac. Aenean id auctor magna, ut ullamcorper felis. Integer a lorem nec nibh fringilla dictum non non mi. Donec sit amet justo mattis, facilisis risus sed, feugiat eros. Duis a lobortis diam.'
   },
@@ -47,14 +56,6 @@ const EVENTS: IEvent[] = [
     end: new Date('2019-05-15 15:00:00'),
     allDay: false,
     customerId: 2,
-    customer: {
-      id: 2,
-      firstName: 'Jane',
-      lastName: 'Doe',
-      phoneNumber: '+52 13332837283',
-      email: 'jane.doe@gmail.com',
-      country: 'United States'
-    },
     // tslint:disable-next-line:max-line-length
     details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mollis nisl quis est aliquet, ut blandit nibh mollis. Vestibulum eu pretium quam, sed tempor ligula. Nam in mattis neque, tincidunt mattis urna. Donec eleifend mauris et felis consectetur consectetur. Aenean iaculis ornare nibh, ac efficitur est laoreet ac. Aenean id auctor magna, ut ullamcorper felis. Integer a lorem nec nibh fringilla dictum non non mi. Donec sit amet justo mattis, facilisis risus sed, feugiat eros. Duis a lobortis diam.'
   }

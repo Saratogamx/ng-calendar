@@ -1,9 +1,9 @@
 export interface IProduct {
-    id: number;
+    id?: number;
     name: string;
     brand: string;
     category: string;
     imageUrl: string;
     url: string;
-    keywords: Array<string>;
+    keywords?: string[];
 }

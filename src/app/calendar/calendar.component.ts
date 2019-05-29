@@ -50,4 +50,11 @@ export class CalendarComponent implements OnInit {
     this.router.navigate([`/calendar/appointment/${event.id}`]);
   }
 
+  handleNewAppointment(event): void {
+    const calApi = this.calendarComponent.getApi();
+
+    calApi.addEvent(event.appointment);
+    this.$('[elementid="newAppointment"]').modal('hide');
+  }
+
 }

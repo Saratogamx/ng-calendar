@@ -1,36 +1,97 @@
-<form>
+<h3>New Appointment</h3>
+<br>
+
+<form novalidate
+  (ngSubmit)="saveAppointment()"
+  [formGroup]="appointmentForm"
+>
   <div class="form-group">
-    <input type="text" id="title" name="title" class="form-control" placeholder="Set a title">
+    <label for="title">Title for the appointment</label>
+    <input  class="form-control"
+            type="text"
+            id="title"
+            formControlName="title"
+            [ngClass]="{'is-invalid': fieldIsValid(appointmentForm.get('title'))}"
+            placeholder="Set a title" />
+    <span class="invalid-feedback">
+      <span *ngIf="appointmentForm.get('title').errors?.required">
+        Please enter a title for the appointment.
+      </span>
+    </span>
   </div>
 
   <hr>
 
   <div class="form-group">
-    <div class="form-row" style="margin-bottom: 10px;">
-      <div class="col">
-        <label for="start_date">Start date</label>
-        <input type="date" id="start_date" name="start_date" class="form-control">
+    <div formGroupName="dates">
+      <div class="form-row" style="margin-bottom: 10px;">
+        <div class="col">
+          <label for="start_date">Start date</label>
+          <input  class="form-control" 
+                  type="date" 
+                  id="start_date"
+                  formControlName="start_date" 
+                  [ngClass]="{'is-invalid': fieldIsValid(appointmentForm.get('dates.start_date'))}" />
+          <span class="invalid-feedback">
+            <span *ngIf="appointmentForm.get('dates.start_date').errors?.required">
+              Please enter a starting date for the appointment.
+            </span>
+          </span>
+        </div>
+        <div class="col" *ngIf="!allDay">
+          <label for="start_time">Start time</label>
+          <input  class="form-control" 
+                  type="time" 
+                  id="start_time"
+                  formControlName="start_time" 
+                  [ngClass]="{'is-invalid': fieldIsValid(appointmentForm.get('dates.start_time'))}" />
+          <span class="invalid-feedback">
+            <span *ngIf="appointmentForm.get('dates.start_time').errors?.required">
+              Please enter a starting time for the appointment.
+            </span>
+          </span>
+        </div>
       </div>
-      <div class="col" *ngIf="!allDay">
-        <label for="start_time">Start time</label>
-        <input type="time" id="start_time" name="start_time" class="form-control">
-      </div>
-    </div>
-    <div class="form-row" *ngIf="!allDay">
-      <div class="col">
-        <label for="finish_date">Finish date</label>
-        <input type="date" id="finish_date" name="finish_date" class="form-control">
-      </div>
-      <div class="col">
-        <label for="finish_time">Finish time</label>
-        <input type="time" id="finish_time" name="finish_time" class="form-control">
+      <div class="form-row" *ngIf="!allDay">
+        <div class="col">
+          <label for="finish_date">Finish date</label>
+          <input  class="form-control" 
+                  type="date" 
+                  id="finish_date"
+                  formControlName="finish_date"
+                  [ngClass]="{'is-invalid': appointmentForm.get('dates').errors || fieldIsValid(appointmentForm.get('dates.finish_date')) }" />
+          <span class="invalid-feedback">
+            <span *ngIf="appointmentForm.get('dates.finish_date').errors?.required">
+              Please enter a finish date for the appointment.
+            </span>
+            <span *ngIf="appointmentForm.get('dates').errors?.date">
+              The finish date is earlier than the start date.
+            </span>
+          </span>
+        </div>
+        <div class="col">
+          <label for="finish_time">Finish time</label>
+          <input  class="form-control"
+                  type="time" 
+                  id="finish_time"
+                  formControlName="finish_time"
+                  [ngClass]="{'is-invalid': appointmentForm.get('dates').errors || fieldIsValid(appointmentForm.get('dates.finish_time'))}" />
+          <span class="invalid-feedback">
+            <span *ngIf="appointmentForm.get('dates.finish_time').errors?.required">
+              Please enter a finish time for the appointment.
+            </span>
+            <span *ngIf="appointmentForm.get('dates').errors?.date">
+              The finish date is earlier than the start date.
+            </span>
+          </span>
+        </div>
       </div>
     </div>
     <div class="custom-control custom-checkbox" style="margin-top: 5px;">
-      <input type="checkbox" class="custom-control-input" id="all_day" name="all_day"
-        (ngModel)="allDay"
-        (change)="onAlldayCheckboxChange($event)"
-      >
+      <input  class="custom-control-input" 
+              type="checkbox" 
+              id="all_day"
+              formControlName="all_day" />
       <label class="custom-control-label" for="all_day">All day</label>
     </div>
   </div>
@@ -39,20 +100,48 @@
 
   <div class="form-group">
     <label>Select a Customer</label>
-    <select class="custom-select" id="customer_id" name="customer_id">
-      <option selected>&nbsp;</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+    <select class="custom-select"
+            id="customer_id"
+            formControlName="customer_id"
+            [ngClass]="{'is-invalid': fieldIsValid(appointmentForm.get('customer_id'))}">
+      <option
+        *ngFor="let customer of customers"
+        [value]="customer.id">{{ customer.firstName }} {{ customer.lastName }}</option>
     </select>
+    <span class="invalid-feedback">
+      <span *ngIf="appointmentForm.get('customer_id').errors?.required">
+        Please select a customer from the list.
+      </span>
+    </span>
   </div>
 
   <hr>
 
   <div class="form-group">
-    <label for="exampleFormControlTextarea1">Appointment details</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <label for="details">Appointment details</label>
+    <textarea class="form-control"
+              id="details"
+              formControlName="details"
+              rows="3"
+              [ngClass]="{'is-invalid': fieldIsValid(appointmentForm.get('details'))}">
+    </textarea>
+    <span class="invalid-feedback">
+      <span *ngIf="appointmentForm.get('details').errors?.required">
+        Please enter details of the appointment.
+      </span>
+    </span>
   </div>
   
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" 
+          class="btn btn-primary"
+          [disabled]="!appointmentForm.valid"
+          style="margin-right: 5px;">
+    Save
+  </button>
+  <button class="btn btn-outline-secondary"
+          type="button"
+          (click)="cancel($event)">
+    Cancel
+  </button>
+
 </form>

@@ -3,7 +3,9 @@
     <h3>{{ title }}</h3>
   </div>
   <div>
-    <button class="btn btn-sm btn-primary" style="margin-left: 15px;" modal-trigger="newProduct">Add new</button>
+    <button class="btn btn-sm btn-primary" style="margin-left: 15px;"
+            [routerLink]="['/products/new']" 
+    >Add new</button>
   </div>
 </div>
 
@@ -16,9 +18,9 @@
       <option value="2">Date</option>
     </select>
   </div>
-  <form class="form-inline">
+  <!-- <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-  </form>
+  </form> -->
 </nav>
 
 <div class="row">
@@ -51,10 +53,3 @@
     </tbody>
   </table>
 </div>
-
-<!-- Modal window for new order -->
-<app-modal-window title="New Product" elementId="newProduct">
-  <div class="list-group">
-    <app-new-product></app-new-product>
-  </div>
-</app-modal-window>

@@ -1,25 +1,103 @@
-<form>
+<h3>New Product</h3>
+<br>
+
+<form novalidate
+      (ngSubmit)="saveProduct()"
+      [formGroup]="newProductForm">
+  
   <div class="form-group">
-    <label for="">Name</label>
-    <input type="text" class="form-control" />
+    <label for="productName">Name</label>
+    <input  class="form-control"
+            id="productName"
+            type="text"
+            [ngClass]="{'is-invalid': fieldIsValid(newProductForm.get('name'))}"
+            formControlName="name" />
+    <span class="invalid-feedback">
+      <span *ngIf="newProductForm.get('name').errors?.required">
+        Please enter a name for the new product.
+      </span>
+    </span>
   </div>
+
   <div class="form-group">
-    <label for="">Brand</label>
-    <input type="text" class="form-control" />
+    <label for="productBrand">Brand</label>
+    <input  class="form-control"
+            id="productBrand"
+            type="text"
+            [ngClass]="{'is-invalid': fieldIsValid(newProductForm.get('brand'))}"
+            formControlName="brand" />
+    <span class="invalid-feedback">
+      <span *ngIf="newProductForm.get('brand').errors?.required">
+        Please enter a brand for the new product.
+      </span>
+    </span>
   </div>
+
   <div class="form-group">
-    <label for="">Category</label>
-    <input type="text" class="form-control" />
+    <label for="productCategory">Category</label>
+    <input  class="form-control"
+            id="productCategory"
+            type="text"
+            [ngClass]="{'is-invalid': fieldIsValid(newProductForm.get('category'))}"
+            formControlName="category" />
+    <span class="invalid-feedback">
+      <span *ngIf="newProductForm.get('category').errors?.required">
+        Please enter a category for the new product.
+      </span>
+    </span>
   </div>
+
   <div class="form-group">
-    <label for="">Keywords</label>
-    <input type="text" class="form-control" (keyup)="onKeyup($event)" (keydown.enter)="onEnterKey($event)" />
+    <label for="productImageUrl">ImageUrl</label>
+    <input  class="form-control"
+            id="productImageUrl" 
+            type="text" 
+            [ngClass]="{'is-invalid': fieldIsValid(newProductForm.get('image_url'))}"
+            formControlName="image_url" />
+    <span class="invalid-feedback">
+      <span *ngIf="newProductForm.get('image_url').errors?.required">
+        Please enter an image url for the new product.
+      </span>
+      <span *ngIf="newProductForm.get('image_url').errors?.pattern">
+        Please enter a valid url for the new product.
+      </span>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="productUrl">Product Url</label>
+    <input  class="form-control" 
+            id="productUrl" 
+            type="text"
+            [ngClass]="{'is-invalid': fieldIsValid(newProductForm.get('url'))}" 
+            formControlName="url" />
+    <span class="invalid-feedback">
+      <span *ngIf="newProductForm.get('url').errors?.required">
+        Please enter an url for the new product.
+      </span>
+      <span *ngIf="newProductForm.get('url').errors?.pattern">
+        Please enter a valid url for the new product.
+      </span>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="productKeywords">Keywords</label>
+    <input  class="form-control"
+            id="productKeywords" 
+            type="text"
+            (keyup)="onKeyup($event)" 
+            (keydown.enter)="onEnterKey($event)" />
+    
     <div class="keywords-container">
       <span class="badge badge-secondary"
-        *ngFor="let keyword of keywords"
+            *ngFor="let keyword of keywords"
+            (click)="deleteKeyword($event)"
+            style="cursor: pointer;"
+            title="click to remove the keyword"
       >{{ keyword }}</span>
     </div>
-    <!--<textarea class="form-control" name="" id="" cols="30" rows="5"></textarea>-->
   </div>
+
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

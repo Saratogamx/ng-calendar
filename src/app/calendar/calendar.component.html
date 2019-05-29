@@ -3,8 +3,9 @@
     <h3>{{ title }}</h3>
   </div>
   <div>
-    <button class="btn btn-sm btn-primary" style="margin-left: 15px;"
-      modal-trigger="newAppointment"
+    <button class="btn btn-sm btn-primary"
+      [routerLink]="['/calendar/new']"
+      style="margin-left: 15px;"
     >Add new</button>
   </div>
 </div>
@@ -21,10 +22,3 @@
   (eventClick)="handleEventClick($event)"
 >
 </full-calendar>
-
-<!-- Modal window for new appointment -->
-<app-modal-window title="New Appointment" elementId="newAppointment">
-  <div class="list-group">
-    <app-new-appointment></app-new-appointment>
-  </div>
-</app-modal-window>

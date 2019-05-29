@@ -17,6 +17,18 @@ export class ProductService {
   getProduct(id: number): Observable<IProduct> {
     return of(PRODUCTS.find(prod => prod.id === id));
   }
+
+  create(prod: IProduct): Observable<any> {
+    prod.id = (this.getMaxId() + 1);
+    PRODUCTS.push(prod);
+
+    return of(prod);
+  }
+
+  private getMaxId() {
+    const idsArray = PRODUCTS.map(item => +item.id);
+    return Math.max.apply(Math, idsArray);
+  }
 }
 
 const PRODUCTS: IProduct[] = [

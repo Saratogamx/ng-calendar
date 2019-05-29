@@ -18,6 +18,18 @@ export class CustomerService {
   getCustomer(id: number): Observable<ICustomer> {
     return of(CUSTOMERS.find(customer => customer.id === id));
   }
+
+  create(customer: ICustomer): Observable<ICustomer> {
+    customer.id = (this.getMaxId() + 1);
+    CUSTOMERS.push(customer);
+
+    return of(customer);
+  }
+
+  private getMaxId() {
+    const idsArray = CUSTOMERS.map(item => +item.id);
+    return Math.max.apply(Math, idsArray);
+  }
 }
 
 const CUSTOMERS: ICustomer[] = [
