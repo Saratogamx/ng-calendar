@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router, CanDeactivate } from '@angular/router';
+import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { NewAppointmentComponent } from './new-appointment.component';
@@ -20,19 +21,8 @@ export class AppointmentGuard implements CanActivate, CanDeactivate<NewAppointme
     @Inject(TOASTR_TOKEN) private toastr: any
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const appointmentId = +route.paramMap.get('id');
-    let event: IEvent;
-
-    this.eventService.getEvent(appointmentId).subscribe(e => event = e);
-
-    if (typeof event === 'undefined') {
-      this.toastr.error(`The Appointment with ID:${appointmentId} does not exist.`);
-      this.router.navigate(['/calendar']);
-      return false;
-    } else {
-      return true;
-    }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return true;
   }
 
   canDeactivate(component: NewAppointmentComponent, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -42,5 +32,12 @@ export class AppointmentGuard implements CanActivate, CanDeactivate<NewAppointme
 
     return true;
   }
-
 }
+
+/*if (typeof event === 'undefined') {
+  this.toastr.error(`The Appointment with ID:${appointmentId} does not exist.`);
+  this.router.navigate(['/calendar']);
+  return false;
+} else {
+  return true;
+}*/

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 // Importing Models
 import { IEvent } from '../event.model';
@@ -9,20 +11,21 @@ import { IEvent } from '../event.model';
 })
 export class EventsService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getEvents(): Observable<IEvent[]> {
-    return of(EVENTS);
+    return this.http.get<IEvent[]>('/api/events')
+      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
   }
 
   getEvent(id: number): Observable<IEvent> {
-    const event = EVENTS.find(ev => ev.id === id);
-    return of(event);
+    return this.http.get<IEvent>(`/api/events/${id}`)
+      .pipe(catchError(this.handleError<IEvent>('getEvent')));
   }
 
   getByCustomer(customerId: number): Observable<IEvent[]> {
-    const events = EVENTS.filter(ev => +ev.customerId === customerId);
-    return of(events);
+    return this.http.get<IEvent[]>(`/api/customers/${customerId}/events`)
+      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
   }
 
   create(event: IEvent): Observable<any> {
@@ -35,6 +38,14 @@ export class EventsService {
   private getMaxId(): number {
     const idsArray = EVENTS.map(item => +item.id);
     return Math.max.apply(Math, idsArray);
+  }
+
+  // Error handling in http requests
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    }
   }
 }
 

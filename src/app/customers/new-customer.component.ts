@@ -16,6 +16,7 @@ import { TOASTR_TOKEN, Toastr } from '../common/toastr.service';
   styleUrls: ['./new-customer.component.css']
 })
 export class NewCustomerComponent implements OnInit {
+  isDirty: boolean;
   countries: ICountry[];
   newCustomerForm: FormGroup;
 
@@ -28,6 +29,8 @@ export class NewCustomerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isDirty = true;
+
     // Get countries
     this.countryService.getCountries().subscribe(countries => {
       this.countries = countries;
@@ -52,11 +55,16 @@ export class NewCustomerComponent implements OnInit {
       email:        values.email,
       country:      values.country
     }).subscribe(data => {
+      this.isDirty = false;
       this.toastr.success('The Customer has been created.');
       setTimeout(() => {
         this.router.navigate(['/customers']);
       }, 500);
     });
+  }
+
+  cancel(): void {
+    this.router.navigate(['/customers']);
   }
 
   fieldIsValid(c: AbstractControl): boolean {

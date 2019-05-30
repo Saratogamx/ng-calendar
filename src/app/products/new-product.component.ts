@@ -10,6 +10,7 @@ import { TOASTR_TOKEN, Toastr } from '../common/toastr.service';
   styleUrls: ['./new-product.component.css']
 })
 export class NewProductComponent implements OnInit {
+  isDirty: boolean;
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   keywords: any[] = [];
   newProductForm: FormGroup;
@@ -22,6 +23,8 @@ export class NewProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isDirty = true;
+
     this.newProductForm = this.fb.group({
       name:       ['', Validators.required],
       brand:      ['', Validators.required],
@@ -68,11 +71,16 @@ export class NewProductComponent implements OnInit {
       url: values.url,
       keywords: this.keywords
     }).subscribe(data => {
+      this.isDirty = false;
       this.toastr.success('The Product has been created.');
       setTimeout(() => {
         this.router.navigate(['/products']);
       }, 500);
     });
+  }
+
+  cancel(): void {
+    this.router.navigate(['/products']);
   }
 
   fieldIsValid(c: AbstractControl): boolean {

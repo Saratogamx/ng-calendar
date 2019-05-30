@@ -83,5 +83,14 @@
     </span>
   </div>
   
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button class="btn btn-primary"
+          type="submit"
+          style="margin-right: 5px;">
+    Submit
+  </button>
+  <button class="btn btn-outline-secondary"
+          type="button"
+          (click)="cancel($event)">
+    Cancel
+  </button>
 </form>

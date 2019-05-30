@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './nav/navbar.component';
@@ -30,6 +31,7 @@ import { appRoutes } from './routes';
 import { TOASTR_TOKEN, Toastr } from './common/toastr.service';
 // Injection token for jQuery service
 import { JQ_TOKEN } from './common/jquery.service';
+import { LoginComponent } from './common/auth/login.component';
 
 
 // Global value for "toastr" and "jquery" objects
@@ -43,6 +45,7 @@ const jQuery = window['$'];
     BrowserModule,
     FullCalendarModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   declarations: [
@@ -59,7 +62,8 @@ const jQuery = window['$'];
     NewCustomerComponent,
     ProductListComponent,
     NewProductComponent,
-    ViewAppointmentComponent
+    ViewAppointmentComponent,
+    LoginComponent
   ],
   providers: [
     // Declaring TOASTR_TOKEN injection token as a provider for toastr and jQuery

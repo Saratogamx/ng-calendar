@@ -9,16 +9,30 @@ import { NewAppointmentComponent } from './appointments/new-appointment.componen
 import { NewProductComponent } from './products/new-product.component';
 import { NewCustomerComponent } from './customers/new-customer.component';
 import { AppointmentGuard } from './appointments/appointment.guard';
+import { ProductGuard } from './products/product.guard';
+import { CustomerGuard } from './customers/customer.guard';
+import { LoginComponent } from './common/auth/login.component';
+
+import { AppointmentResolverService } from './appointments/appointment-resolver.service';
+import { ViewAppointmentService } from './appointments/view-appointment.resolver';
 
 export const appRoutes: Routes = [
     { path: 'calendar/new', component: NewAppointmentComponent, canDeactivate: [AppointmentGuard] },
-    { path: 'calendar/appointment/:id', component: ViewAppointmentComponent, canActivate: [AppointmentGuard] },
+    { 
+        path: 'calendar/appointment/:id',
+        component: ViewAppointmentComponent,
+        canActivate: [AppointmentGuard],
+        resolve: {
+            appointment: ViewAppointmentService
+        }
+    },
     { path: 'calendar', component: CalendarComponent },
     { path: 'orders', component: OrderListComponent },
-    { path: 'customers/new', component: NewCustomerComponent },
+    { path: 'customers/new', component: NewCustomerComponent, canDeactivate: [CustomerGuard] },
     { path: 'customers', component: CustomerListComponent },
-    { path: 'products/new', component: NewProductComponent },
+    { path: 'products/new', component: NewProductComponent, canDeactivate: [ProductGuard] },
     { path: 'products', component: ProductListComponent },
+    { path: 'login', component: LoginComponent },
     { path: '', redirectTo: '/calendar', pathMatch: 'full' }
     /*{ path: 'events/new', component: CreateEventComponent, canDeactivate: ['canDeactivateCreateEvent'] },
     { path: 'events', component: EventsListComponent, resolve: { events: EventsListResolverService } },

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // Full calendar
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -24,13 +24,14 @@ export class CalendarComponent implements OnInit {
   calendarVisible = true;
   calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
-  calendarEvents: EventInput[] = [];
+  calendarEvents = [];
 
   title = 'My Appointments';
 
   constructor(
     private eventService: EventsService,
     private router: Router,
+    private route: ActivatedRoute,
     @Inject(JQ_TOKEN) private $: any
   ) {}
 
